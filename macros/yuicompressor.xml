@@ -1,0 +1,23 @@
+<project name="yuicompressor">
+
+    <!-- macro to minify files -->
+    <macrodef name="yuicompressor">
+        
+        <attribute name="output" />
+        <attribute name="options" default=""/>
+        <attribute name="failonerror" default="true" />
+        <element name="files"/>
+        
+        <sequential>
+            <echo>Minifying with YUI Compressor</echo>
+            <apply executable="java" parallel="false" failonerror="@{failonerror}">
+                <files/>
+                <arg line="-jar"/>
+                <arg path="${buildr.yuicompressor}"/>
+                <arg line="@{options} -o @{output}"/>
+                <srcfile/>
+            </apply>            
+        </sequential>    
+    </macrodef>
+    
+</project>

@@ -1,0 +1,25 @@
+<project name="JSHint">
+
+    <property name="buildr.jshint.options" value="curly=true,forin=true,latedef=true,noempty=true,undef=true,rhino=false" />
+
+    <macrodef name="jshint">
+
+        <attribute name="options" default="${buildr.jshint.options}" />
+        <attribute name="failonerror" default="true" />
+        <element name="jsfiles"/>    
+
+        <sequential>
+            <echo>Validating with JSHint</echo>
+            <pathconvert pathsep=" " property="jshint.jsfiles">
+                <jsfiles/>
+            </pathconvert>
+            <exec executable="java" failonerror="@{failonerror}">
+                <arg line="-jar"/>
+                <arg path="${buildr.lib.dir}/${buildr.rhino}"/>
+                <arg path="${buildr.lib.dir}/${buildr.jshint}" />        
+                <arg line="${jshint.jsfiles} @{options} " />
+            </exec>          
+        </sequential>    
+    </macrodef>
+
+</project>

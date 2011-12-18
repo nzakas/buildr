@@ -1,0 +1,11 @@
+<project name="buildr">
+
+    <!-- import all properties -->
+    <loadproperties srcFile="buildr.properties" />
+
+    <!-- import all macros -->
+    <import>
+        <fileset dir="${buildr.macros.dir}" includes="*.xml" />
+    </import>
+   
+</project>
