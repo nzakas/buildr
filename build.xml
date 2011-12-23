@@ -1,11 +1,88 @@
 <project name="buildr">
 
     <!-- import all properties -->
-    <loadproperties srcFile="buildr.properties" />
+    <loadproperties srcfile="buildr.properties" />
 
     <!-- import all macros -->
     <import>
         <fileset dir="${buildr.macros.dir}" includes="*.xml" />
     </import>
    
+   
+    <target name="lint">
+        <csslint>
+            <fileset dir="." includes="*.css" />
+        </csslint>
+    </target>
+    
+    <target name="minify-closure">
+    
+        <apply executable="java" failonerror="true">
+        
+            <fileset dir="." includes="*.js"/>
+            <mapper type="glob" from="*.js" to="./*-min.js"/>
+            
+            <arg line="-jar"/>
+            <arg path="${buildr.lib.dir}/${buildr.closure}"/>
+            
+            <arg line="--js"/>
+            <srcfile/>
+            
+            <arg line="--js_output_file"/>            
+            <targetfile/>
+        </apply>     
+   
+    </target>   
+    
+    <target name="compress">
+    
+            <pathconvert pathsep=";" property="buildr.jsfiles">
+                <fileset dir="." includes="*.js"/>
+            </pathconvert>    
+    
+        <script language="javascript"> <![CDATA[
+        importPackage(java.io);
+        
+        var files = project.getProperty("buildr.jsfiles").split(";");
+
+
+          for (i=0; i < files.length; i++) {
+            gzip = project.createTask("gzip");
+            gzip.setSrc(new File(files[i]));
+            gzip.setDestfile(new File(files[i].replace(".js", ".js.gz")));
+            gzip.perform();
+          }
+
+        ]]> </script>    
+    </target>
+    
+    <target name="document-jsdoc">       
+        <apply executable="java" failonerror="true" parallel="true">
+            <fileset dir="." includes="parserlib-core.js" />
+            <arg line="-jar ${buildr.jsdoc}"/>
+            <arg line="-t=${buildr.jsdoc.templates}" />
+            <arg line="-d=./out" />
+            <srcfile/>
+        </apply>
+    </target>    
+
+    <target name="document-jsdoc2">       
+        <apply executable="java" failonerror="true" parallel="true">
+            <fileset dir="." includes="parserlib-core.js" />
+            <arg line="-jar ${buildr.jsdoc}"/>
+            <arg line="-t=${buildr.jsdoc.templates}" />
+            <arg line="-d=./out" />
+            <srcfile/>
+        </apply>
+    </target>    
+    
+    <target name="document-yuidoc">       
+        <exec executable="yuidoc" failonerror="true">
+            <arg path="./tmp"/>
+            <arg line="-o" />
+            <arg path="./docs"/>
+        </exec>
+    </target>    
+    
+    
 </project>

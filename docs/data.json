@@ -1,0 +1,838 @@
+{
+    "project": {},
+    "files": {
+        "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js": {
+            "name": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "modules": {},
+            "classes": {
+                "parserlib.util.EventTarget": 1,
+                "parserlib.util.StringReader": 1,
+                "parserlib.util.SyntaxError": 1,
+                "parserlib.util.SyntaxUnit": 1,
+                "parserlib.util.TokenStreamBase": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "parserlib.util": 1
+            }
+        }
+    },
+    "modules": {},
+    "classes": {
+        "parserlib.util.EventTarget": {
+            "name": "parserlib.util.EventTarget",
+            "shortname": "EventTarget",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "parserlib.util",
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 28,
+            "description": "A generic base to inherit from for any object\nthat needs event handling.",
+            "is_constructor": 1
+        },
+        "parserlib.util.StringReader": {
+            "name": "parserlib.util.StringReader",
+            "shortname": "StringReader",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "parserlib.util",
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 115,
+            "description": "Convenient way to read through strings.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "The text to read.",
+                    "type": "String"
+                }
+            ]
+        },
+        "parserlib.util.SyntaxError": {
+            "name": "parserlib.util.SyntaxError",
+            "shortname": "SyntaxError",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "parserlib.util",
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 382,
+            "description": "Type to use when a syntax error occurs.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The error message.",
+                    "type": "String"
+                },
+                {
+                    "name": "line",
+                    "description": "The line at which the error occurred.",
+                    "type": "Int"
+                },
+                {
+                    "name": "col",
+                    "description": "The column at which the error occurred.",
+                    "type": "Int"
+                }
+            ]
+        },
+        "parserlib.util.SyntaxUnit": {
+            "name": "parserlib.util.SyntaxUnit",
+            "shortname": "SyntaxUnit",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "parserlib.util",
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 418,
+            "description": "Base type to represent a single syntactic unit.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "The text of the unit.",
+                    "type": "String"
+                },
+                {
+                    "name": "line",
+                    "description": "The line of text on which the unit resides.",
+                    "type": "Int"
+                },
+                {
+                    "name": "col",
+                    "description": "The column of text on which the unit resides.",
+                    "type": "Int"
+                }
+            ]
+        },
+        "parserlib.util.TokenStreamBase": {
+            "name": "parserlib.util.TokenStreamBase",
+            "shortname": "TokenStreamBase",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "parserlib.util",
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 498,
+            "description": "Generic TokenStream providing base functionality.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "input",
+                    "description": "The text to tokenize or a reader from \n     which to read the input.",
+                    "type": "String|StringReader"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 36,
+            "description": "The array of listeners for various events.",
+            "type": "Object",
+            "itemtype": "property",
+            "name": "_listeners",
+            "access": "private",
+            "tagname": "",
+            "class": "EventTarget"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 50,
+            "description": "Adds a listener for a given event type.",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The type of event to add a listener for.",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "The function to call when the event occurs.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "itemtype": "method",
+            "name": "addListener",
+            "class": "EventTarget"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 65,
+            "description": "Fires an event based on the passed-in object.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "An object with at least a 'type' attribute\n     or a string indicating the event name.",
+                    "type": "Object|String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "itemtype": "method",
+            "name": "fire",
+            "class": "EventTarget"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 94,
+            "description": "Removes a listener for a given event type.",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The type of event to remove a listener from.",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "The function to remove from the event.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "itemtype": "method",
+            "name": "removeListener",
+            "class": "EventTarget"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 124,
+            "description": "The input text with line endings normalized.",
+            "itemtype": "property",
+            "name": "_input",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 133,
+            "description": "The row for the character to be read next.",
+            "itemtype": "property",
+            "name": "_line",
+            "type": "int",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 142,
+            "description": "The column for the character to be read next.",
+            "itemtype": "property",
+            "name": "_col",
+            "type": "int",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 150,
+            "description": "The index of the character in the input to be read next.",
+            "itemtype": "property",
+            "name": "_cursor",
+            "type": "int",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 168,
+            "description": "Returns the column of the character to be read next.",
+            "return": {
+                "description": "The column of the character to be read next.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "getCol",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 177,
+            "description": "Returns the row of the character to be read next.",
+            "return": {
+                "description": "The row of the character to be read next.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "getLine",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 186,
+            "description": "Determines if you're at the end of the input.",
+            "return": {
+                "description": "True if there's no more input, false otherwise.",
+                "type": "Boolean"
+            },
+            "itemtype": "method",
+            "name": "eof",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 199,
+            "description": "Reads the next character without advancing the cursor.",
+            "params": [
+                {
+                    "name": "count",
+                    "description": "How many characters to look ahead (default is 1).",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The next character or null if there is no next character.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "peek",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 219,
+            "description": "Reads the next character from the input and adjusts the row and column\naccordingly.",
+            "return": {
+                "description": "The next character or null if there is no next character.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "read",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 251,
+            "description": "Saves the current location so it can be returned to later.",
+            "itemtype": "method",
+            "name": "mark",
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 277,
+            "description": "Reads up to and including the given string. Throws an error if that\nstring is not found.",
+            "params": [
+                {
+                    "name": "pattern",
+                    "description": "The string to read.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The string when it is found.",
+                "type": "String"
+            },
+            "throws": [
+                "Error when the string pattern is not found."
+            ],
+            "itemtype": "method",
+            "name": "readTo",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 308,
+            "description": "Reads characters while each character causes the given\nfilter function to return true. The function is passed\nin each character and either returns true to continue\nreading or false to stop.",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "The function to read on each character.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "The string made up of all characters that passed the\n     filter check.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "readWhile",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 332,
+            "description": "Reads characters that match either text or a regular expression and\nreturns those characters. If a match is found, the row and column\nare adjusted; if no match is found, the reader's state is unchanged.\nreading or false to stop.",
+            "params": [
+                {
+                    "name": "matchter",
+                    "description": "If a string, then the literal string\n     value is searched for. If a regular expression, then any string\n     matching the pattern is search for.",
+                    "type": "String|RegExp"
+                }
+            ],
+            "return": {
+                "description": "The string made up of all characters that matched or\n     null if there was no match.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "readMatch",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 364,
+            "description": "Reads a given number of characters. If the end of the input is reached,\nit reads only the remaining characters and does not throw an error.",
+            "params": [
+                {
+                    "name": "count",
+                    "description": "The number of characters to read.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The string made up the read characters.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "readCount",
+            "class": "parserlib.util.StringReader",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 393,
+            "description": "The column at which the error occurred.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "col",
+            "class": "parserlib.util.SyntaxError",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 400,
+            "description": "The line at which the error occurred.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "line",
+            "class": "parserlib.util.SyntaxError",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 407,
+            "description": "The text representation of the unit.",
+            "type": "String",
+            "itemtype": "property",
+            "name": "text",
+            "class": "parserlib.util.SyntaxError",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 430,
+            "description": "The column of text on which the unit resides.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "col",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 437,
+            "description": "The line of text on which the unit resides.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "line",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 444,
+            "description": "The text representation of the unit.",
+            "type": "String",
+            "itemtype": "property",
+            "name": "text",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 451,
+            "description": "The type of syntax unit.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "type",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 459,
+            "description": "Create a new syntax unit based solely on the given token.\nConvenience method for creating a new syntax unit when\nit represents a single token instead of multiple.",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token object to represent.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The object representing the token.",
+                "type": "Parserlib.util.SyntaxUnit"
+            },
+            "static": 1,
+            "itemtype": "method",
+            "name": "fromToken",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 477,
+            "description": "Returns the text representation of the unit.",
+            "return": {
+                "description": "The text representation of the unit.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "valueOf",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 486,
+            "description": "Returns the text representation of the unit.",
+            "return": {
+                "description": "The text representation of the unit.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "toString",
+            "class": "parserlib.util.SyntaxUnit",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 508,
+            "description": "The string reader for easy access to the text.",
+            "type": "StringReader",
+            "itemtype": "property",
+            "name": "_reader",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 516,
+            "description": "Token object for the last consumed token.",
+            "type": "Token",
+            "itemtype": "property",
+            "name": "_token",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 524,
+            "description": "The array of token information.",
+            "type": "Array",
+            "itemtype": "property",
+            "name": "_tokenData",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 532,
+            "description": "Lookahead token buffer.",
+            "type": "Array",
+            "itemtype": "property",
+            "name": "_lt",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 540,
+            "description": "Lookahead token buffer index.",
+            "type": "int",
+            "itemtype": "property",
+            "name": "_ltIndex",
+            "access": "private",
+            "tagname": "",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 551,
+            "description": "Accepts an array of token information and outputs\nan array of token data containing key-value mappings\nand matching functions that the TokenStream needs.",
+            "params": [
+                {
+                    "name": "tokens",
+                    "description": "An array of token descriptors.",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "An array of processed token data.",
+                "type": "Array"
+            },
+            "itemtype": "method",
+            "name": "createTokenData",
+            "static": 1,
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 599,
+            "description": "Determines if the next token matches the given token type.\nIf so, that token is consumed; if not, the token is placed\nback onto the token stream. You can pass in any number of\ntoken types and this will return true if any of the token\ntypes is found.",
+            "params": [
+                {
+                    "name": "tokenTypes",
+                    "description": "Either a single token type or an array of\n     token types that the next token might be. If an array is passed,\n     it's assumed that the token can be any of these.",
+                    "type": "Int|int[]"
+                },
+                {
+                    "name": "channel",
+                    "description": "(Optional) The channel to read from. If not\n     provided, reads from the default (unnamed) channel.",
+                    "type": "Variant"
+                }
+            ],
+            "return": {
+                "description": "True if the token type matches, false if not.",
+                "type": "Boolean"
+            },
+            "itemtype": "method",
+            "name": "match",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 635,
+            "description": "Determines if the next token matches the given token type.\nIf so, that token is consumed; if not, an error is thrown.",
+            "params": [
+                {
+                    "name": "tokenTypes",
+                    "description": "Either a single token type or an array of\n     token types that the next token should be. If an array is passed,\n     it's assumed that the token must be one of these.",
+                    "type": "Int|int[]"
+                },
+                {
+                    "name": "channel",
+                    "description": "(Optional) The channel to read from. If not\n     provided, reads from the default (unnamed) channel.",
+                    "type": "Variant"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "itemtype": "method",
+            "name": "mustMatch",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 666,
+            "description": "Keeps reading from the token stream until either one of the specified\ntoken types is found or until the end of the input is reached.",
+            "params": [
+                {
+                    "name": "tokenTypes",
+                    "description": "Either a single token type or an array of\n     token types that the next token should be. If an array is passed,\n     it's assumed that the token must be one of these.",
+                    "type": "Int|int[]"
+                },
+                {
+                    "name": "channel",
+                    "description": "(Optional) The channel to read from. If not\n     provided, reads from the default (unnamed) channel.",
+                    "type": "Variant"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "itemtype": "method",
+            "name": "advance",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 686,
+            "description": "Consumes the next token from the token stream.",
+            "return": {
+                "description": "The token type of the token that was just consumed.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "get",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 771,
+            "description": "Looks ahead a certain number of tokens and returns the token type at\nthat position. This will throw an error if you lookahead past the\nend of input, past the size of the lookahead buffer, or back past\nthe first token in the lookahead buffer.",
+            "params": [
+                {
+                    "name": "The",
+                    "description": "index of the token type to retrieve. 0 for the\n     current token, 1 for the next, -1 for the previous, etc.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The token type of the token in the given position.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "LA",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 817,
+            "description": "Looks ahead a certain number of tokens and returns the token at\nthat position. This will throw an error if you lookahead past the\nend of input, past the size of the lookahead buffer, or back past\nthe first token in the lookahead buffer.",
+            "params": [
+                {
+                    "name": "The",
+                    "description": "index of the token type to retrieve. 0 for the\n     current token, 1 for the next, -1 for the previous, etc.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The token of the token in the given position.",
+                "type": "Object"
+            },
+            "itemtype": "method",
+            "name": "LA",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 836,
+            "description": "Returns the token type for the next token in the stream without \nconsuming it.",
+            "return": {
+                "description": "The token type of the next token in the stream.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "peek",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 846,
+            "description": "Returns the actual token object for the last consumed token.",
+            "return": {
+                "description": "The token object for the last consumed token.",
+                "type": "Token"
+            },
+            "itemtype": "method",
+            "name": "token",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 855,
+            "description": "Returns the name of the token for the given token type.",
+            "params": [
+                {
+                    "name": "tokenType",
+                    "description": "The type of token to get the name of.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The name of the token or \"UNKNOWN_TOKEN\" for any\n     invalid token type.",
+                "type": "String"
+            },
+            "itemtype": "method",
+            "name": "tokenName",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 870,
+            "description": "Returns the token type value for the given token name.",
+            "params": [
+                {
+                    "name": "tokenName",
+                    "description": "The name of the token whose value should be returned.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The token type value for the given token name or -1\n     for an unknown token.",
+                "type": "Int"
+            },
+            "itemtype": "method",
+            "name": "tokenName",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        },
+        {
+            "file": "/home/nicholas/share/personal/buildr/tmp/parserlib-core.js",
+            "line": 881,
+            "description": "Returns the last consumed token to the token stream.",
+            "itemtype": "method",
+            "name": "unget",
+            "class": "parserlib.util.TokenStreamBase",
+            "namespace": "parserlib.util"
+        }
+    ]
+}

@@ -6,19 +6,18 @@
 
         <attribute name="options" default="${buildr.jshint.options}" />
         <attribute name="failonerror" default="true" />
-        <element name="jsfiles"/>    
+        <element name="jsfiles" implicit="true"/>    
 
         <sequential>
             <echo>Validating with JSHint</echo>
-            <pathconvert pathsep=" " property="jshint.jsfiles">
+            <apply executable="java" parallel="true" failonerror="@{failonerror}">
                 <jsfiles/>
-            </pathconvert>
-            <exec executable="java" failonerror="@{failonerror}">
                 <arg line="-jar"/>
-                <arg path="${buildr.lib.dir}/${buildr.rhino}"/>
-                <arg path="${buildr.lib.dir}/${buildr.jshint}" />        
-                <arg line="${jshint.jsfiles} @{options} " />
-            </exec>          
+                <arg path="${buildr.rhino.path}"/>
+                <arg path="${buildr.jshint.path}" />        
+                <arg line="@{options} " />
+                <srcfile/>
+            </apply>          
         </sequential>    
     </macrodef>
 

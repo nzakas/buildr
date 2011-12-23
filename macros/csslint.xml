@@ -12,7 +12,7 @@
         <attribute name="format" default="${buildr.csslint.format}" />
         <attribute name="quiet" default="${buildr.csslint.quiet}" />
         <attribute name="failonerror" default="true" />
-        <element name="cssfiles"/>    
+        <element name="cssfiles" implicit="true"/>    
 
         <sequential>
             <echo>Validating with CSS Lint</echo>

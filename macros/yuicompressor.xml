@@ -3,21 +3,67 @@
     <!-- macro to minify files -->
     <macrodef name="yuicompressor">
         
-        <attribute name="output" />
-        <attribute name="options" default=""/>
+        <attribute name="outputdir" default="."/>
+        <attribute name="outputext" default="*-min.*"/>
+        <attribute name="preserve-semi" default="" />
+        <attribute name="type" default="" />
+        <attribute name="disable-optimizations" default="" />
+        <attribute name="nomunge" default="" />
+        <attribute name="line-break" default="" />
+        <attribute name="charset" default="" />        
         <attribute name="failonerror" default="true" />
-        <element name="files"/>
+        <element name="files" implicit="true"/>
         
         <sequential>
             <echo>Minifying with YUI Compressor</echo>
+            <script language="javascript"><![CDATA[            
+                var nomunge     = "@{nomunge}",
+                    charset     = "@{charset}",
+                    preserveSemi= "@{preserve-semi}",
+                    disableOpts = "@{disable-optimizations}",
+                    lineBreak   = "@{line-break}",
+                    type        = "@{type}",
+                    options     = "";
+                    
+                if (charset) {
+                    options += " --charset " + charset;
+                }
+                
+                if (lineBreak) {
+                    options += " --line-break " + lineBreak;
+                }
+                
+                if (type) {
+                    options += " --type " + type;
+                }
+                
+                if (nomunge == "true") {
+                    options += " --nomunge";
+                }
+                
+                if (disableOpts == "true") {
+                    options += " --disable-optimizations";
+                }
+                
+                if (preserveSemi == "true") {
+                    options += " --preserve-semi";
+                }
+
+                project.setProperty("buildr.yuicompressor.options", options);     
+            ]]></script>
+            <echo>Using: ${buildr.yuicompressor.options}</echo>
             <apply executable="java" parallel="false" failonerror="@{failonerror}">
                 <files/>
+                <mapper type="glob" from="*.*" to="@{outputdir}/@{outputext}"/>
+
                 <arg line="-jar"/>
                 <arg path="${buildr.yuicompressor}"/>
-                <arg line="@{options} -o @{output}"/>
+                <arg line="@{buildr.yuicompressor.options}"/>                
                 <srcfile/>
+                
+                <arg line="-o"/>           
+                <targetfile/>                
             </apply>            
         </sequential>    
-    </macrodef>
-    
+    </macrodef>        
 </project>
