@@ -3,8 +3,7 @@
     <!-- macro to minify files -->
     <macrodef name="yuicompressor">
         
-        <attribute name="outputdir" default="."/>
-        <attribute name="outputext" default="*-min.*"/>
+        <attribute name="outputdir"/>
         <attribute name="preserve-semi" default="" />
         <attribute name="type" default="" />
         <attribute name="disable-optimizations" default="" />
@@ -16,6 +15,9 @@
         
         <sequential>
             <echo>Minifying with YUI Compressor</echo>
+            <pathconvert pathsep=";" property="buildr.yuicompressor.files">
+                <files/>
+            </pathconvert>            
             <script language="javascript"><![CDATA[            
                 var nomunge     = "@{nomunge}",
                     charset     = "@{charset}",
@@ -49,16 +51,17 @@
                     options += " --preserve-semi";
                 }
 
-                project.setProperty("buildr.yuicompressor.options", options);     
+                project.setProperty("buildr.yuicompressor.options", options);  
+                
             ]]></script>
             <echo>Using: ${buildr.yuicompressor.options}</echo>
             <apply executable="java" parallel="false" failonerror="@{failonerror}">
                 <files/>
-                <mapper type="glob" from="*.*" to="@{outputdir}/@{outputext}"/>
+                <mapper type="regexp" from="^(.*?)\.(js|css)$$" to="@{outputdir}/\1-min.\2"/>
 
                 <arg line="-jar"/>
-                <arg path="${buildr.yuicompressor}"/>
-                <arg line="@{buildr.yuicompressor.options}"/>                
+                <arg path="${buildr.yuicompressor.path}"/>
+                <arg line="${buildr.yuicompressor.options}"/>                
                 <srcfile/>
                 
                 <arg line="-o"/>           
