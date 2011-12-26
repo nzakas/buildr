@@ -7,7 +7,6 @@
         <attribute name="inputdir"/>
         
         <attribute name="failonerror" default="true" />
-        <element name="files" implicit="true"/>
         
         <sequential>
             <echo>Documenting with yuidoc Toolkit</echo>   
