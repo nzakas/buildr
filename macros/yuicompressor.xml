@@ -15,9 +15,6 @@
         
         <sequential>
             <echo>Minifying with YUI Compressor</echo>
-            <pathconvert pathsep=";" property="buildr.yuicompressor.files">
-                <files/>
-            </pathconvert>            
             <script language="javascript"><![CDATA[            
                 var nomunge     = "@{nomunge}",
                     charset     = "@{charset}",
