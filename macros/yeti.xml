@@ -3,12 +3,11 @@
     <!-- macro to test files -->
     <macrodef name="yeti">
 
-        
         <attribute name="failonerror" default="true" />
         <element name="files" implicit="true"/>
         
         <sequential>
-            <echo>Documenting with yeti Toolkit</echo>   
+            <echo>Testing with Yeti</echo>   
             <apply executable="${buildr.yeti}" failonerror="@{failonerror}">
                 <files/>
                 <srcfile/>
