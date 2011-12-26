@@ -1,12 +1,7 @@
-<project name="buildr">
+<project name="buildrx">
 
     <!-- import all properties -->
-    <loadproperties srcfile="buildr.properties" />
-
-    <!-- import all macros -->
-    <import>
-        <fileset dir="${buildr.macros.dir}" includes="*.xml" />
-    </import>
+    <import file="buildr.xml"/>
    
    
     <target name="lint">
@@ -84,5 +79,10 @@
         </exec>
     </target>    
     
+    <target name="document">       
+        <jsdoc outputdir="./docs">
+            <fileset dir="./tmp" includes="**/*.js" />
+        </jsdoc>
+    </target>
     
 </project>
