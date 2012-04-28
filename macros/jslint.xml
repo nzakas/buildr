@@ -1,0 +1,71 @@
+<project name="JSLint">
+
+    <!--Assumes jslint command is in your $PATH (or %PATH% on windows).-->
+    <!--jslint can be installed via npm.  For example `npm install -g jslint`-->
+    <property name="buildr.jslint.options"
+              value="--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars" />
+
+    <!--On windows, the jslint command must have .cmd extension in order for ant to execute it.-->
+    <condition property="buildr.jslint.osCommand" value="${buildr.jslint.command}.cmd">
+      <os family="windows"/>
+    </condition>
+    <condition property="buildr.jslint.osCommand" value="${buildr.jslint.command}">
+      <or>
+        <os family="unix"/>
+        <os family="mac"/>
+      </or>
+    </condition>
+
+    <macrodef name="jslint">
+
+        <attribute name="options" default="${buildr.jslint.options}"/>
+        <attribute name="failonerror" default="true" />
+        <element name="jsfiles" implicit="true"/>
+
+        <sequential>
+            <echo>Validating with JSLint</echo>
+
+            <!--Note: jslint needs to be executed/called differently on windows-->
+
+            <!--Unix version of applying jslint to each file-->
+            <apply executable="${buildr.jslint.osCommand}" failonerror="@{failonerror}" osfamily="unix">
+                <jsfiles/>
+                <arg line="@{options} "/>
+                <srcfile/>
+            </apply>
+
+            <!--Mac version of applying jslint to each file (same as unix)-->
+            <apply executable="${buildr.jslint.osCommand}" failonerror="@{failonerror}" osfamily="mac">
+                <jsfiles/>
+                <arg line="@{options} "/>
+                <srcfile/>
+            </apply>
+
+            <!--Windows version of applying jslint to each file-->
+            <apply executable="${buildr.jslint.osCommand}" failonerror="@{failonerror}" osfamily="windows">
+                <jsfiles/>
+                <arg line="@{options} "/>
+                <srcfile/>
+
+                <!--Hack Note: The following arg is only necessary on windows in order to see all       -->
+                <!--           stdout and stderr.                                                       -->
+                <!--           - On windows, jslint is a batch file that calls node.                    -->
+                <!--           - As expected the batch file's stdout and stderror is reported by ant.   -->
+                <!--           - However the stdout from node is not passed through.(frustrating!!!!)   -->
+                <!--The apply task's output and error attributes don't work in this situation.          -->
+                <!--The following is a hack I figured out to view the jslint stdout and stderror output.-->
+                <!--(after all - it's useful to see the actual errors reported by jslint!)              -->
+
+                <!--Next arg: forces node's stderror and stdout to a temporary file-->
+                <arg line=" &gt; _buildr_redirect.out 2&lt;&amp;1"/>
+                <!--Next arg: If jslint exits with an error, then output the temporary file to stdout, -->
+                <!--          delete the temporary file and finally exit with error level 1 so that    -->
+                <!--          the apply task can catch the error if @failonerror="true"                -->
+                <arg line=" || (type _buildr_redirect.out &amp; del _buildr_redirect.out &amp; exit /b 1)"/>
+                <!--Next arg: Otherwise, just type the temporary file and delete it-->
+                <arg line=" &amp; type _buildr_redirect.out &amp; del _buildr_redirect.out &amp;"/>
+            </apply>
+        </sequential>
+    </macrodef>
+
+</project>
